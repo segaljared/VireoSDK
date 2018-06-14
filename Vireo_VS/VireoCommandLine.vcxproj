@@ -53,7 +53,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\source\core\library_coreHelpers.js" />
+    <None Include="..\source\core\library_events.js" />
     <None Include="..\source\core\module_coreHelpers.js" />
+    <None Include="..\source\core\module_events.js" />
     <None Include="..\source\core\vireo.loader.js" />
     <None Include="..\source\core\vireo.wrapper.js" />
     <None Include="..\source\include\ConversionTable.def" />

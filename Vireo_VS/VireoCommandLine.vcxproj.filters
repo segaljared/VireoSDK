@@ -1,10 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
     <Filter Include="VireoSource">
       <UniqueIdentifier>{239cef4f-5de0-41c7-923c-d0775efb5818}</UniqueIdentifier>
     </Filter>
@@ -19,6 +15,10 @@
     </Filter>
     <Filter Include="VireoSource\IO">
       <UniqueIdentifier>{87749a21-6183-4f92-8a31-22b58f67cee7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="VireoSource\Core\Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -41,9 +41,6 @@
       <Filter>VireoSource\Core</Filter>
     </ClCompile>
     <ClCompile Include="..\source\core\EventLog.cpp">
-      <Filter>VireoSource\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\source\core\Events.cpp">
       <Filter>VireoSource\Core</Filter>
     </ClCompile>
     <ClCompile Include="..\source\core\ExecutionContext.cpp">
@@ -133,13 +130,11 @@
     <ClCompile Include="..\source\io\PropertyNode.cpp">
       <Filter>VireoSource\IO</Filter>
     </ClCompile>
+    <ClCompile Include="..\source\core\Events.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\source\include\ConversionTable.def">
       <Filter>VireoSource\Include</Filter>
-    </None>
-    <None Include="..\source\io\library_canvas2d.js">
-      <Filter>VireoSource\IO</Filter>
     </None>
     <None Include="..\source\io\library_httpClient.js">
       <Filter>VireoSource\IO</Filter>
@@ -169,6 +164,15 @@
       <Filter>VireoSource\Core</Filter>
     </None>
     <None Include="..\source\core\vireo.wrapper.js">
+      <Filter>VireoSource\Core</Filter>
+    </None>
+    <None Include="..\source\io\library_canvas2d.js">
+      <Filter>VireoSource\IO</Filter>
+    </None>
+    <None Include="..\source\core\library_events.js">
+      <Filter>VireoSource\Core</Filter>
+    </None>
+    <None Include="..\source\core\module_events.js">
       <Filter>VireoSource\Core</Filter>
     </None>
   </ItemGroup>

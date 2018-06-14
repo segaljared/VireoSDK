@@ -23,6 +23,16 @@
 
 namespace Vireo {
 
+#if kVireoOS_emscripten
+extern "C" {
+    // JavaScript function prototypes
+    // Parameters: viName, controlId, eventId, eventOracleIndex
+    extern void jsRegisterForControlEvent(StringRef, UInt32, UInt32, UInt32);
+    // Parameters: viName, controlId, eventId, eventOracleIndex
+    extern void jsUnRegisterForControlEvent(StringRef, UInt32, UInt32, UInt32);
+}
+#endif
+
 // Manage UserEvent refnums.
 // The refnum storage stores only a placeholder null value because we only actually need to lookup whether a refnum is valid or not;
 // the data is stored in the Event Oracle's event queues, not in the refnum, and the User Event's type is available in any context
@@ -696,6 +706,10 @@ LVError RegisterForEventsCore(EventQueueID qID, DynamicEventRegInfo *regInfo, In
 }
 VIREO_FUNCTION_SIGNATUREV(RegisterForEvents, RegisterForEventsParamBlock)
 {
+
+#if kVireoOS_emscripten
+    jsRegisterForControlEvent(null, 0, 0, 0);
+#endif
     RefNumVal* eventRegRefnumPtr = _ParamPointer(regRef);
     DynamicEventRegInfo *regInfo = NULL;
 
@@ -712,9 +726,13 @@ VIREO_FUNCTION_SIGNATUREV(RegisterForEvents, RegisterForEventsParamBlock)
         return ReturnRegForEventsFatalError("RegisterForEvents: malformed ref ref type, doesn't contain cluster", 0);
     }
     Int32 regCount = eventRegRefnumPtr->Type()->GetSubElement(0)->SubElementCount();
-    if (numVarArgs % numArgsPerTuple != 0 || regCount != numTuples) {
-        return ReturnRegForEventsFatalError("RegisterForEvents: Wrong number of arguments.  Should be one <event code, ref> input pair"
+    if (numVarArgs % numArgsPerTuple != 0) {
+        return ReturnRegForEventsFatalError("1RegisterForEvents: Wrong number of arguments.  Should be one <event code, ref> input pair"
                                 " per item in the event reg refnum output type", 0);
+    }
+    else if (regCount != numTuples) {
+        return ReturnRegForEventsFatalError("2RegisterForEvents: Wrong number of arguments.  Should be one <event code, ref> input pair"
+            " per item in the event reg refnum output type", 0);
     }
     RefNum erRefNum = eventRegRefnumPtr->GetRefNum();
     if (erRefNum && EventRegistrationRefNumManager::RefNumStorage().GetRefNumData(erRefNum, &regInfo) != kNIError_Success) {
