@@ -95,7 +95,7 @@
 
             writeEventData(allocatedDataValueRef, eventData);
 
-            Module.OccurEvent(eventOracleIndex, controlId, eventType, allocatedDataValueRef.typeRef, allocatedDataValueRef.dataRef);
+            Module._OccurEvent(eventOracleIndex, controlId, eventType, allocatedDataValueRef.typeRef, allocatedDataValueRef.dataRef);
 
             Module.eggShell.deallocateData(allocatedDataValueRef);
         };
