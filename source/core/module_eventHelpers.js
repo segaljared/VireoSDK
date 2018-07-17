@@ -35,13 +35,14 @@
         Module.eventHelpers = {};
         publicAPI.eventHelpers = {};
 
-        var OccurEvent = Module.cwrap('OccurEvent', 'void', ['number', 'number', 'number']);
-
         var registerForControlEvent = function () {
             throw new Error('No event registration callback was supplied');
         };
         var unRegisterForControlEvent = function () {
             throw new Error('No event un-registration callback was supplied');
+        };
+        var writeEventData = function() {
+            throw new Error('No event data write callback was supplied');
         };
 
         Module.eventHelpers.jsRegisterForControlEvent = function (
@@ -80,7 +81,24 @@
             unRegisterForControlEvent = fn;
         };
 
-        publicAPI.eventHelpers.occurEvent = Module.eventHelpers.occurEvent = OccurEvent;
+        publicAPI.eventHelpers.setWriteEventDataFunction = Module.eventHelpers.setWriteEventDataFunction = function (fn) {
+            if (typeof fn !== 'function') {
+                throw new Error('WriteEventData must be a callable function');
+            }
+
+            writeEventData = fn;
+        };
+
+        publicAPI.eventHelpers.occurEvent = Module.eventHelpers.occurEvent = function(eventOracleIndex, controlId, eventType, eventDataTypeValueRef, eventData) {
+
+            var allocatedDataValueRef = Module.eggShell.allocateData(eventDataTypeValueRef.typeRef);
+
+            writeEventData(allocatedDataValueRef, eventData);
+
+            Module.OccurEvent(eventOracleIndex, controlId, eventType, allocatedDataValueRef.typeRef, allocatedDataValueRef.dataRef);
+
+            Module.eggShell.deallocateData(allocatedDataValueRef);
+        };
     };
 
     return assignEventHelpers;
