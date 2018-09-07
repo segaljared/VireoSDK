@@ -51,14 +51,8 @@ struct EventStructInfo {
     EventStructInfo() : eventOccurrence(), setCount(0), staticQID(0) { }
 };
 
-struct EventControlInfo {
-    EventOracleIndex eventOracleIndex;
-    EventControlUID controlID;
-    explicit EventControlInfo(EventOracleIndex eoIdx = 0, EventControlUID ctlID = 0) : eventOracleIndex(eoIdx), controlID(ctlID) { }
-};
-
 struct EventInfo {
-    typedef std::map<RefNum, EventControlInfo> ControlIDInfoMap;
+    typedef std::map<RefNum, EventControlUID> ControlIDInfoMap;
 
     EventStructInfo *eventStructInfo;
     ControlIDInfoMap controlIDInfoMap;

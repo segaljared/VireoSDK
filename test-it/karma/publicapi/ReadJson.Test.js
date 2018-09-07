@@ -11,7 +11,7 @@ describe('The Vireo EggShell readJSON api can read', function () {
     var viName = 'MyVI';
 
     var readActualJSON = function (viName, path) {
-        var valueRef = vireo.eggShell.findValueRef(viName, path);
+        var valueRef = vireo.eggShell.(viName, path);
         var valJSON = vireo.eggShell.readJSON(valueRef);
         return valJSON;
     };
